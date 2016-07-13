@@ -16,6 +16,8 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.deltek.domain.maconomy.MRestData;
 import com.deltek.domain.maconomy.MRestError;
+import com.deltek.domain.maconomy.to.MRestEmployeeCard;
+import com.deltek.domain.maconomy.to.MRestEmployeeTable;
 import com.deltek.domain.maconomy.to.MRestJobBudget;
 import com.deltek.domain.maconomy.to.MRestJobBudgetLine;
 
@@ -40,10 +42,14 @@ public class MaconomyRestClient {
         return client;
     }
 
+    public MRestData<MRestEmployeeCard, MRestEmployeeTable> getMaconomyEmployees(WebTarget target) {
+        return executeRequest(target, new GenericType<MRestData<MRestEmployeeCard, MRestEmployeeTable>>(){});
+    }
+    
     public MRestData<MRestJobBudget, MRestJobBudgetLine> getMaconomyBudget(WebTarget target, String jobNumber) {
         String encodedJobNumber = urlSafeEncodedString(jobNumber);
         WebTarget getTarget = target.path("jobbudgets").path(String.format("data;jobnumber=%s", encodedJobNumber));
-        return executeRequest(getTarget);
+        return executeRequest(getTarget, new GenericType<MRestData<MRestJobBudget, MRestJobBudgetLine>>(){});
     }
     
     private String urlSafeEncodedString(String jobNumber){
@@ -54,7 +60,8 @@ public class MaconomyRestClient {
         }
     }
     
-    private MRestData<MRestJobBudget, MRestJobBudgetLine> executeRequest(WebTarget getTarget){
+    private <CARD extends Object, TABLE extends Object> MRestData<CARD, TABLE>
+    					executeRequest(WebTarget getTarget, GenericType<MRestData<CARD, TABLE>> type){
         Invocation.Builder getInvocationBuilder = getTarget.request(MediaType.APPLICATION_JSON);
         Response getResponse = getInvocationBuilder.get();
 
@@ -62,8 +69,7 @@ public class MaconomyRestClient {
             throwExceptionFromResponse(getResponse);
         }
 
-        return getResponse.readEntity(new GenericType<MRestData<MRestJobBudget, MRestJobBudgetLine>>() {
-        });
+        return getResponse.readEntity(type);
     }
     
     private void throwExceptionFromResponse(Response response) {
@@ -71,7 +77,7 @@ public class MaconomyRestClient {
         throw new RuntimeException(errorMessage);
     }
     
-    //This is broken.
+    //TODO: This is broken, HTTP error responses are not handled correctly.
     private String buildErrorMessage(Response response){
         MRestError restError = response.readEntity(MRestError.class);
         String message = restError.getErrorMessage();
