@@ -20,16 +20,15 @@ public class SampleTlMiddlewareProjectApplication {
 		SpringApplication.run(SampleTlMiddlewareProjectApplication.class, args);
 	}
 	
-	//Temporary configuration location.  Place the core context beans below.
 	@Bean
-	public RestTemplate restTemplate() {
+	private RestTemplate restTemplate() {
 		TestRestTemplate basicAuthRestTemplate = new TestRestTemplate("simonstewart@deltek.com", "turK0QoPU5gkO6usNGfZcYcBpMEIaI0nUNLZQQSA");
 		return basicAuthRestTemplate;
 	}
 	
 	@Bean
-	public TrafficLiveRestClient trafficLiveRestClient() {
-		TrafficLiveRestClient tlClient = new TrafficLiveRestClient(restTemplate(), "https://api.sohnar.com/TrafficLiteServer/openapi");
+	public TrafficLiveRestClient restClient() {
+		TrafficLiveRestClient tlClient = new TrafficLiveRestClient(restTemplate(), "https://stage-api.sohnar.com/TrafficLiteServer/openapi");
 		return tlClient;
 	}
 	
