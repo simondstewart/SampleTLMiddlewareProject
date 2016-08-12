@@ -47,7 +47,7 @@ public class IntegrationConfiguration {
                     .channel(this.inputChannel())
                     .filter((Integer p) -> p > 0)
                     .transform(Transformers.converter((Integer counter) -> 
-                    		{return ""+tlRestClient.getJobTaskTimeEntries(counter, 1).getResultList().get(0); }))
+                    		{return ""+tlRestClient.jobTaskTimeEntry().getPage(counter, 1).getResultList().get(0); }))
                     .channel("stringPayloadOutputChannel")
                     .get();
     }
@@ -57,7 +57,7 @@ public class IntegrationConfiguration {
     	return IntegrationFlows.from(this.integerMessageSource(), c -> c.poller(Pollers.fixedRate(5000)))
     			.channel(this.inputChannel())
     			.transform(Transformers.converter((Integer counter) -> 
-    			{return tlRestClient.getJobTaskTimeEntries(counter, 10);}))
+    			{return tlRestClient.jobTaskTimeEntry().getPage(counter, 10);}))
     			.split(JobTaskTimeEntryPagedResultsTO.class, JobTaskTimeEntryPagedResultsTO::getResultList)
     			.transform(Transformers.converter((JobTaskTimeEntryTO timeEntry) ->
     					{return "Id: "+timeEntry.id + " " + timeEntry.comment + ""; }))

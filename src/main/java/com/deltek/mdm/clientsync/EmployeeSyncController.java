@@ -33,7 +33,7 @@ public class EmployeeSyncController {
 		//Get Maconomy Page of Records.
 		//For each record decide whether we need to insert a new record or update an existing.
 		//We should be able to decide, by searching for TrafficLiveEmployees where employeeNumber = externalCode.
-		EmployeePagedResultsTO result = trafficLiveRestClient.getEmployees(currentPage, windowSize);
+		EmployeePagedResultsTO result = trafficLiveRestClient.employee().getPage(currentPage, windowSize);
 		return ResponseEntity.ok().body("Success importing all records");
 	}
 	
