@@ -21,7 +21,7 @@ public class SampleTlMiddlewareProjectApplication {
 	}
 	
 	@Bean
-	private RestTemplate restTemplate() {
+	public RestTemplate restTemplate() {
 		TestRestTemplate basicAuthRestTemplate = new TestRestTemplate("simonstewart@deltek.com", "turK0QoPU5gkO6usNGfZcYcBpMEIaI0nUNLZQQSA");
 		return basicAuthRestTemplate;
 	}
