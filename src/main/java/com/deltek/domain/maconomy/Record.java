@@ -3,6 +3,7 @@ package com.deltek.domain.maconomy;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,57 +14,74 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "card",
-    "table"
+        "meta",
+        "data",
+        "links"
 })
-public class MRestPanes<T, U> {
+public class Record<T> {
 
-    @JsonProperty("card")
-    private MRestCard<T> card;
-    @JsonProperty("table")
-    private MRestTable<U> table;
+    @JsonProperty("meta")
+    private RecordMeta meta;
+
+    @JsonProperty("data")
+    private T data;
+
+    @JsonProperty("links")
+    private Links links;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
-     * @return
-     *     The card
+     * @return The data
      */
-    @JsonProperty("card")
-    public MRestCard<T> getCard() {
-        return card;
+    @JsonProperty("data")
+    public T getData() {
+        return data;
     }
 
     /**
-     * 
-     * @param card
-     *     The card
+     * @param data The data
      */
-    @JsonProperty("card")
-    public void setCard(MRestCard<T> card) {
-        this.card = card;
+    @JsonProperty("data")
+    public void setData(T data) {
+        this.data = data;
     }
 
     /**
-     *
-     * @return
-     *     The table
+     * @return The meta
      */
-    @JsonProperty("table")
-    public MRestTable<U> getTable() {
-        return table;
+    @JsonProperty("meta")
+    public RecordMeta getMeta() {
+        return meta;
     }
 
     /**
-     *
-     * @param table
-     *     The table
+     * @param meta The meta
      */
-    @JsonProperty("table")
-    public void setTable(MRestTable<U> table) {
-        this.table = table;
+    @JsonProperty("meta")
+    public void setMeta(RecordMeta meta) {
+        this.meta = meta;
     }
+
+
+    /**
+     * @return The links
+     */
+    @JsonProperty("links")
+    public Links getLinks() {
+        return links;
+    }
+
+    /**
+     * @param links The links
+     */
+    @JsonProperty("links")
+    public void setLinks(Links links) {
+        this.links = links;
+    }
+
+
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

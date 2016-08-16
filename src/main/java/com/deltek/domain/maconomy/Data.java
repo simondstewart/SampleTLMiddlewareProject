@@ -16,12 +16,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "panes",
     "links"
 })
-public class MRestData<T, U> {
+public class Data<T, U> {
 
     @JsonProperty("panes")
-    private MRestPanes<T, U> panes;
+    private Panes<T, U> panes;
     @JsonProperty("links")
-    private MRestLinks links;
+    private Links links;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -31,7 +31,7 @@ public class MRestData<T, U> {
      *     The panes
      */
     @JsonProperty("panes")
-    public MRestPanes<T, U> getPanes() {
+    public Panes<T, U> getPanes() {
         return panes;
     }
 
@@ -41,17 +41,17 @@ public class MRestData<T, U> {
      *     The panes
      */
     @JsonProperty("panes")
-    public void setPanes(MRestPanes<T, U> panes) {
+    public void setPanes(Panes<T, U> panes) {
         this.panes = panes;
     }
 
     @JsonProperty("links")
-    public MRestLinks getLinks() {
+    public Links getLinks() {
         return links;
     }
 
     @JsonProperty("links")
-    public void setLinks(MRestLinks links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 

@@ -14,12 +14,16 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-import com.deltek.domain.maconomy.MRestData;
-import com.deltek.domain.maconomy.MRestError;
-import com.deltek.domain.maconomy.to.MRestEmployeeCard;
-import com.deltek.domain.maconomy.to.MRestEmployeeTable;
-import com.deltek.domain.maconomy.to.MRestJobBudget;
-import com.deltek.domain.maconomy.to.MRestJobBudgetLine;
+import com.deltek.domain.maconomy.Data;
+import com.deltek.domain.maconomy.Endpoint;
+import com.deltek.domain.maconomy.Data;
+import com.deltek.domain.maconomy.Error;
+import com.deltek.domain.maconomy.to.EmployeeCard;
+import com.deltek.domain.maconomy.to.EmployeeTable;
+import com.deltek.domain.maconomy.to.HoursJournal;
+import com.deltek.domain.maconomy.to.JobBudget;
+import com.deltek.domain.maconomy.to.JobBudgetLine;
+import com.deltek.domain.maconomy.to.Journal;
 
 public class MaconomyRestClient {
 
@@ -42,14 +46,38 @@ public class MaconomyRestClient {
         return client;
     }
 
-    public MRestData<MRestEmployeeCard, MRestEmployeeTable> getMaconomyEmployees(WebTarget target) {
-        return executeRequest(target, new GenericType<MRestData<MRestEmployeeCard, MRestEmployeeTable>>(){});
+    //GET base endpoint
+    //GET http://193.17.206.162:4111/containers/v1/x1demo/jobjournal
+    //follow insert action and POST with empty body.
+    //Take the response template, fill out the required fields.
+    //follow the 
+    
+    public Endpoint getJobJournalEndpoint() {
+    	 WebTarget getTarget = client.target(apiBasePath).path("jobjournal");
+         Invocation.Builder getInvocationBuilder = getTarget.request(MediaType.APPLICATION_JSON);
+         Response getResponse = getInvocationBuilder.get();
+
+         if (getResponse.getStatus() != 200) {
+             throwExceptionFromResponse(getResponse);
+         }
+
+         return getResponse.readEntity(new GenericType<Endpoint>(){});
     }
     
-    public MRestData<MRestJobBudget, MRestJobBudgetLine> getMaconomyBudget(WebTarget target, String jobNumber) {
+    public class JobJournal extends Data<Journal, HoursJournal> {};
+    
+    public JobJournal getJobJournal() {
+    	return new JobJournal();
+    }
+    
+    public Data<EmployeeCard, EmployeeTable> getMaconomyEmployees(WebTarget target) {
+        return executeRequest(target, new GenericType<Data<EmployeeCard, EmployeeTable>>(){});
+    }
+    
+    public Data<JobBudget, JobBudgetLine> getMaconomyBudget(WebTarget target, String jobNumber) {
         String encodedJobNumber = urlSafeEncodedString(jobNumber);
         WebTarget getTarget = target.path("jobbudgets").path(String.format("data;jobnumber=%s", encodedJobNumber));
-        return executeRequest(getTarget, new GenericType<MRestData<MRestJobBudget, MRestJobBudgetLine>>(){});
+        return executeRequest(getTarget, new GenericType<Data<JobBudget, JobBudgetLine>>(){});
     }
     
     private String urlSafeEncodedString(String jobNumber){
@@ -60,8 +88,8 @@ public class MaconomyRestClient {
         }
     }
     
-    private <CARD extends Object, TABLE extends Object> MRestData<CARD, TABLE>
-    					executeRequest(WebTarget getTarget, GenericType<MRestData<CARD, TABLE>> type){
+    private <CARD extends Object, TABLE extends Object> Data<CARD, TABLE>
+    					executeRequest(WebTarget getTarget, GenericType<Data<CARD, TABLE>> type){
         Invocation.Builder getInvocationBuilder = getTarget.request(MediaType.APPLICATION_JSON);
         Response getResponse = getInvocationBuilder.get();
 
@@ -79,7 +107,7 @@ public class MaconomyRestClient {
     
     //TODO: This is broken, HTTP error responses are not handled correctly.
     private String buildErrorMessage(Response response){
-        MRestError restError = response.readEntity(MRestError.class);
+        Error restError = response.readEntity(Error.class);
         String message = restError.getErrorMessage();
 
         StringBuilder errorBuilder = new StringBuilder();

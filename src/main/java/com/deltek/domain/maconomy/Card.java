@@ -14,12 +14,12 @@ import java.util.Map;
     "meta",
     "records"
 })
-public class MRestCard<T> {
+public class Card<T> {
 
     @JsonProperty("meta")
-    private MRestCardMeta meta;
+    private CardMeta meta;
     @JsonProperty("records")
-    private List<MRestRecord<T>> records = new ArrayList<>();
+    private List<Record<T>> records = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -29,7 +29,7 @@ public class MRestCard<T> {
      *     The meta
      */
     @JsonProperty("meta")
-    public MRestCardMeta getMeta() {
+    public CardMeta getMeta() {
         return meta;
     }
 
@@ -39,7 +39,7 @@ public class MRestCard<T> {
      *     The meta
      */
     @JsonProperty("meta")
-    public void setMeta(MRestCardMeta meta) {
+    public void setMeta(CardMeta meta) {
         this.meta = meta;
     }
 
@@ -49,7 +49,7 @@ public class MRestCard<T> {
      *     The records
      */
     @JsonProperty("records")
-    public List<MRestRecord<T>> getRecords() {
+    public List<Record<T>> getRecords() {
         return records;
     }
 
@@ -59,7 +59,7 @@ public class MRestCard<T> {
      *     The records
      */
     @JsonProperty("records")
-    public void setRecords(List<MRestRecord<T>> records) {
+    public void setRecords(List<Record<T>> records) {
         this.records = records;
     }
 

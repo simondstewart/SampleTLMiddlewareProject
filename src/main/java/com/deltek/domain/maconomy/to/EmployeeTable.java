@@ -15,7 +15,7 @@ import java.util.Map;
         "createddate",
         "transactiontimestamp"
 })
-public class MRestEmployeeCard {
+public class EmployeeTable {
 
     @JsonProperty("employeenumber")
     private String employeenumber;

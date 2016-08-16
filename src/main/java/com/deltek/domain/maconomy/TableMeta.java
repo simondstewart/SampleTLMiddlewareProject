@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "rowCount",
     "rowOffset"
 })
-public class MRestTableMeta {
+public class TableMeta {
 
     @JsonProperty("paneName")
     private String paneName;

@@ -14,7 +14,7 @@ import java.util.Map;
     "rowCount",
     "rowOffset"
 })
-public class MRestCardMeta {
+public class CardMeta {
 
     @JsonProperty("paneName")
     private String paneName;

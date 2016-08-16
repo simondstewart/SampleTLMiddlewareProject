@@ -3,7 +3,6 @@ package com.deltek.domain.maconomy;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,74 +13,57 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-        "meta",
-        "data",
-        "links"
+    "concurrencyControl",
+    "rowNumber",
 })
-public class MRestRecord<T> {
+public class RecordMeta {
 
-    @JsonProperty("meta")
-    private MRestRecordMeta meta;
-
-    @JsonProperty("data")
-    private T data;
-
-    @JsonProperty("links")
-    private MRestLinks links;
-
+    @JsonProperty("concurrencyControl")
+    private String concurrencyControl;
+    @JsonProperty("rowNumber")
+    private Integer rowNumber;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * @return The data
+     * 
+     * @return
+     *     The concurrencyControl
      */
-    @JsonProperty("data")
-    public T getData() {
-        return data;
+    @JsonProperty("concurrencyControl")
+    public String getConcurrencyControl() {
+        return concurrencyControl;
     }
 
     /**
-     * @param data The data
+     * 
+     * @param concurrencyControl
+     *     The concurrencyControl
      */
-    @JsonProperty("data")
-    public void setData(T data) {
-        this.data = data;
+    @JsonProperty("concurrencyControl")
+    public void setConcurrencyControl(String concurrencyControl) {
+        this.concurrencyControl = concurrencyControl;
     }
 
     /**
-     * @return The meta
+     * 
+     * @return
+     *     The rowCount
      */
-    @JsonProperty("meta")
-    public MRestRecordMeta getMeta() {
-        return meta;
+    @JsonProperty("rowNumber")
+    public Integer getRowNumber() {
+        return rowNumber;
     }
 
     /**
-     * @param meta The meta
+     * 
+     * @param rowNumber
+     *     The rowNumber
      */
-    @JsonProperty("meta")
-    public void setMeta(MRestRecordMeta meta) {
-        this.meta = meta;
+    @JsonProperty("rowNumber")
+    public void setRowNumber(Integer rowNumber) {
+        this.rowNumber = rowNumber;
     }
-
-
-    /**
-     * @return The links
-     */
-    @JsonProperty("links")
-    public MRestLinks getLinks() {
-        return links;
-    }
-
-    /**
-     * @param links The links
-     */
-    @JsonProperty("links")
-    public void setLinks(MRestLinks links) {
-        this.links = links;
-    }
-
-
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

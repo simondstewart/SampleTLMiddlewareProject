@@ -18,14 +18,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "meta",
     "records"
 })
-public class MRestTable<T> {
+public class Table<T> {
 
     @JsonProperty("meta")
-    private MRestTableMeta meta;
+    private TableMeta meta;
     @JsonProperty("links")
-    private MRestLinks links;
+    private Links links;
     @JsonProperty("records")
-    private List<MRestRecord<T>> records = new ArrayList<>();
+    private List<Record<T>> records = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -35,7 +35,7 @@ public class MRestTable<T> {
      *     The meta
      */
     @JsonProperty("meta")
-    public MRestTableMeta getMeta() {
+    public TableMeta getMeta() {
         return meta;
     }
 
@@ -45,17 +45,17 @@ public class MRestTable<T> {
      *     The meta
      */
     @JsonProperty("meta")
-    public void setMeta(MRestTableMeta meta) {
+    public void setMeta(TableMeta meta) {
         this.meta = meta;
     }
 
     @JsonProperty("links")
-    public MRestLinks getLinks() {
+    public Links getLinks() {
         return links;
     }
 
     @JsonProperty("links")
-    public void setLinks(MRestLinks links) {
+    public void setLinks(Links links) {
         this.links = links;
     }
 
@@ -65,7 +65,7 @@ public class MRestTable<T> {
      *     The records
      */
     @JsonProperty("records")
-    public List<MRestRecord<T>> getRecords() {
+    public List<Record<T>> getRecords() {
         return records;
     }
 
@@ -75,7 +75,7 @@ public class MRestTable<T> {
      *     The records
      */
     @JsonProperty("records")
-    public void setRecords(List<MRestRecord<T>> records) {
+    public void setRecords(List<Record<T>> records) {
         this.records = records;
     }
 

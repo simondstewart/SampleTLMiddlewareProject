@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MRestLink {
+public class Link {
 
     @JsonProperty("template")
     private String template;

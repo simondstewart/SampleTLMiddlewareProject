@@ -13,7 +13,7 @@ import java.util.Map;
         "showbudgettypevar",
         "revisionremark1var"
 })
-public class MRestJobBudget {
+public class JobBudget {
 
     @JsonProperty("jobnumber")
     private String jobnumber;

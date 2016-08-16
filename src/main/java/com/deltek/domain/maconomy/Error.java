@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MRestError {
+public class Error {
 
     @JsonProperty("errorMessage")
     private String errorMessage;

@@ -13,18 +13,18 @@ import java.util.Map;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MRestLinks {
+public class Links {
 
     @JsonIgnore
-    private Map<String, MRestLink> links = new HashMap<String, MRestLink>();
+    private Map<String, Link> links = new HashMap<String, Link>();
 
     @JsonAnyGetter
-    public Map<String, MRestLink> getLinks() {
+    public Map<String, Link> getLinks() {
         return links;
     }
 
     @JsonAnySetter
-    public void setLinks(String name, MRestLink value) {
+    public void setLinks(String name, Link value) {
         this.links.put(name, value);
     }
 }

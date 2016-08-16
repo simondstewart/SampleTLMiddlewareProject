@@ -23,7 +23,7 @@ import java.util.Map;
         "markuppercentage",
         "linetype"
 })
-public class MRestJobBudgetLine {
+public class JobBudgetLine {
 
     @JsonProperty("jobnumber")
     private String jobnumber;

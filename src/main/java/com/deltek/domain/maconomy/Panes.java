@@ -13,56 +13,56 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "concurrencyControl",
-    "rowNumber",
+    "card",
+    "table"
 })
-public class MRestRecordMeta {
+public class Panes<T, U> {
 
-    @JsonProperty("concurrencyControl")
-    private String concurrencyControl;
-    @JsonProperty("rowNumber")
-    private Integer rowNumber;
+    @JsonProperty("card")
+    private Card<T> card;
+    @JsonProperty("table")
+    private Table<U> table;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The concurrencyControl
+     *     The card
      */
-    @JsonProperty("concurrencyControl")
-    public String getConcurrencyControl() {
-        return concurrencyControl;
+    @JsonProperty("card")
+    public Card<T> getCard() {
+        return card;
     }
 
     /**
      * 
-     * @param concurrencyControl
-     *     The concurrencyControl
+     * @param card
+     *     The card
      */
-    @JsonProperty("concurrencyControl")
-    public void setConcurrencyControl(String concurrencyControl) {
-        this.concurrencyControl = concurrencyControl;
+    @JsonProperty("card")
+    public void setCard(Card<T> card) {
+        this.card = card;
     }
 
     /**
-     * 
+     *
      * @return
-     *     The rowCount
+     *     The table
      */
-    @JsonProperty("rowNumber")
-    public Integer getRowNumber() {
-        return rowNumber;
+    @JsonProperty("table")
+    public Table<U> getTable() {
+        return table;
     }
 
     /**
-     * 
-     * @param rowNumber
-     *     The rowNumber
+     *
+     * @param table
+     *     The table
      */
-    @JsonProperty("rowNumber")
-    public void setRowNumber(Integer rowNumber) {
-        this.rowNumber = rowNumber;
+    @JsonProperty("table")
+    public void setTable(Table<U> table) {
+        this.table = table;
     }
 
     @JsonAnyGetter
