@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -18,6 +19,7 @@ import com.deltek.domain.maconomy.Data;
 import com.deltek.domain.maconomy.Endpoint;
 import com.deltek.domain.maconomy.Data;
 import com.deltek.domain.maconomy.Error;
+import com.deltek.domain.maconomy.Record;
 import com.deltek.domain.maconomy.to.EmployeeCard;
 import com.deltek.domain.maconomy.to.EmployeeTable;
 import com.deltek.domain.maconomy.to.HoursJournal;
@@ -66,9 +68,17 @@ public class MaconomyRestClient {
     
     public class JobJournal extends Data<Journal, HoursJournal> {};
     
-    public JobJournal getJobJournal() {
-    	return new JobJournal();
+    public Record<Journal> initJobJournal() {
+    	Endpoint endpoint = getJobJournalEndpoint();
+    	//Create the Journal.
+    	//TODO: Create from the template.
+    	String templateJournalLink = endpoint.getLinks().getLinks().get("action:insert").getHref();
+    	Response response = client.target(templateJournalLink).request(MediaType.APPLICATION_JSON).post(Entity.entity("",  MediaType.APPLICATION_JSON));
+    	Record<Journal> record = response.readEntity(new GenericType<Record<Journal>>(){});
+    	return record;
     }
+    
+    
     
     public Data<EmployeeCard, EmployeeTable> getMaconomyEmployees(WebTarget target) {
         return executeRequest(target, new GenericType<Data<EmployeeCard, EmployeeTable>>(){});
