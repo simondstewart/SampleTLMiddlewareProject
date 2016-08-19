@@ -1,4 +1,4 @@
-package com.deltek.mdm.clientsync;
+package com.deltek.integration.maconomy.client;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,9 +7,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.deltek.SampleTlMiddlewareProjectApplication;
-import com.deltek.domain.maconomy.Endpoint;
-import com.deltek.domain.maconomy.Record;
-import com.deltek.domain.maconomy.to.Journal;
+import com.deltek.integration.maconomy.domain.Endpoint;
+import com.deltek.integration.maconomy.domain.Record;
+import com.deltek.integration.maconomy.client.MaconomyRestClient;
+import com.deltek.integration.maconomy.domain.to.JobJournal;
+import com.deltek.integration.maconomy.domain.to.Journal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SampleTlMiddlewareProjectApplication.class)
@@ -19,7 +21,7 @@ public class MaconomyRestClientTest {
 	
 	@Test
 	public void jobJournalGet() {
-		Endpoint endPoint = mrc.getJobJournalEndpoint();
+		Endpoint endPoint = mrc.jobJournal().endPoint();
 		Assert.assertEquals("jobjournal", endPoint.getContainerName());
 		Assert.assertNotNull(endPoint.getLinks().getLinks().get("data:filter"));
 		Assert.assertNotNull(endPoint.getLinks().getLinks().get("specification"));
@@ -28,9 +30,11 @@ public class MaconomyRestClientTest {
 
 	@Test
 	public void journal(){
-		Record<Journal> templateJournal = mrc.initJobJournal();
+		Record<Journal> templateJournal = mrc.jobJournal().init();
 		Assert.assertNotNull(templateJournal);
 		Assert.assertNotNull(templateJournal.getData());
+		JobJournal createdJournal = mrc.jobJournal().createData(templateJournal);
+		Assert.assertNotNull(createdJournal);
 	}
 	
 }

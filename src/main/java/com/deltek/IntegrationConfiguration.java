@@ -56,6 +56,7 @@ public class IntegrationConfiguration {
     public IntegrationFlow loadPageFlow() {
     	return IntegrationFlows.from(this.integerMessageSource(), c -> c.poller(Pollers.fixedRate(5000)))
     			.channel(this.inputChannel())
+    			.filter((Integer p) -> p > 0)
     			.transform(Transformers.converter((Integer counter) -> 
     			{return tlRestClient.jobTaskTimeEntry().getPage(counter, 10);}))
     			.split(JobTaskTimeEntryPagedResultsTO.class, JobTaskTimeEntryPagedResultsTO::getResultList)

@@ -40,6 +40,12 @@
 		</dependency>
 	
 		<dependency>
+			<groupId>com.deltek.integration.maconomy</groupId>
+			<artifactId>MaconomyRestClient</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
@@ -80,17 +86,6 @@
 			<version>1.10</version>
 		</dependency>
 		
-		<dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.23</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>2.23</version>
-        </dependency>
         <dependency>
         	<groupId>org.scala-lang</groupId>
         	<artifactId>scala-library</artifactId>
