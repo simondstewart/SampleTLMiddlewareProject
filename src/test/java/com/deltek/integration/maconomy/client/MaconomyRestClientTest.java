@@ -7,9 +7,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.deltek.SampleTlMiddlewareProjectApplication;
+import com.deltek.integration.maconomy.domain.CardTableContainer;
 import com.deltek.integration.maconomy.domain.Endpoint;
 import com.deltek.integration.maconomy.domain.Record;
 import com.deltek.integration.maconomy.client.MaconomyRestClient;
+import com.deltek.integration.maconomy.domain.to.HoursJournal;
 import com.deltek.integration.maconomy.domain.to.JobJournal;
 import com.deltek.integration.maconomy.domain.to.Journal;
 
@@ -33,7 +35,7 @@ public class MaconomyRestClientTest {
 		Record<Journal> templateJournal = mrc.jobJournal().init();
 		Assert.assertNotNull(templateJournal);
 		Assert.assertNotNull(templateJournal.getData());
-		JobJournal createdJournal = mrc.jobJournal().createData(templateJournal);
+		CardTableContainer<Journal, HoursJournal> createdJournal = mrc.jobJournal().createCard(templateJournal);
 		Assert.assertNotNull(createdJournal);
 	}
 	
