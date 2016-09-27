@@ -10,20 +10,22 @@ import com.deltek.SampleTlMiddlewareProjectApplication;
 import com.deltek.integration.maconomy.domain.CardTableContainer;
 import com.deltek.integration.maconomy.domain.Endpoint;
 import com.deltek.integration.maconomy.domain.Record;
+import com.deltek.integration.maconomy.psorestclient.MaconomyPSORestContext;
+import com.deltek.integration.maconomy.psorestclient.domain.HoursJournal;
+import com.deltek.integration.maconomy.psorestclient.domain.JobJournal;
+import com.deltek.integration.maconomy.psorestclient.domain.Journal;
 import com.deltek.integration.maconomy.client.MaconomyRestClient;
-import com.deltek.integration.maconomy.domain.to.HoursJournal;
-import com.deltek.integration.maconomy.domain.to.JobJournal;
-import com.deltek.integration.maconomy.domain.to.Journal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SampleTlMiddlewareProjectApplication.class)
 public class MaconomyRestClientTest {
 
-	private MaconomyRestClient mrc = new MaconomyRestClient("Administrator", "123456", "http://193.17.206.162:4111/containers/v1/x1demo");
+	private final MaconomyRestClient mrc = new MaconomyRestClient("Administrator", "123456", "http://193.17.206.162:4111/containers/v1/x1demo");
+	private final MaconomyPSORestContext psoContext = new MaconomyPSORestContext(mrc);
 	
 	@Test
 	public void jobJournalGet() {
-		Endpoint endPoint = mrc.jobJournal().endPoint();
+		Endpoint endPoint = psoContext.jobJournal().endPoint();
 		Assert.assertEquals("jobjournal", endPoint.getContainerName());
 		Assert.assertNotNull(endPoint.getLinks().getLinks().get("data:filter"));
 		Assert.assertNotNull(endPoint.getLinks().getLinks().get("specification"));
@@ -32,10 +34,10 @@ public class MaconomyRestClientTest {
 
 	@Test
 	public void journal(){
-		Record<Journal> templateJournal = mrc.jobJournal().init();
+		Record<Journal> templateJournal = psoContext.jobJournal().init();
 		Assert.assertNotNull(templateJournal);
 		Assert.assertNotNull(templateJournal.getData());
-		CardTableContainer<Journal, HoursJournal> createdJournal = mrc.jobJournal().createCard(templateJournal);
+		CardTableContainer<Journal, HoursJournal> createdJournal = psoContext.jobJournal().createCard(templateJournal);
 		Assert.assertNotNull(createdJournal);
 	}
 	
